@@ -269,7 +269,7 @@ AddDrag(Title_2, Main)
             Button.Parent = holder
             Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             Button.BackgroundTransparency = 1.000
-            Button.Size = UDim2.new(0, 120, 0, 50) -- Horizontal Button size
+            Button.Size = UDim2.new(0, 150, 0, 50) -- Horizontal Button size
 
             Text.Name = "Text"
             Text.Parent = Button
@@ -303,7 +303,7 @@ AddDrag(Title_2, Main)
             Button.Parent = holder
             Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             Button.BackgroundTransparency = 1.000
-            Button.Size = UDim2.new(0, 120, 0, 50) -- Horizontal Button size
+            Button.Size = UDim2.new(0, 150, 0, 50) -- Horizontal Button size
             
             Text.Name = "Text"
             Text.Parent = Button
@@ -350,7 +350,7 @@ AddDrag(Title_2, Main)
             Toggle.Parent = holder
             Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             Toggle.BackgroundTransparency = 1.000
-            Toggle.Size = UDim2.new(0, 120, 0, 50) -- Horizontal Toggle size
+            Toggle.Size = UDim2.new(0, 150, 0, 50) -- Horizontal Toggle size
             
             Holder.Name = "Holder"
             Holder.Parent = Toggle
@@ -617,7 +617,7 @@ AddDrag(Title_2, Main)
             Dropdown.Parent = holder
             Dropdown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             Dropdown.BackgroundTransparency = 1.000
-            Dropdown.Size = UDim2.new(0, 120, 0, 50) -- Horizontal Dropdown size
+            Dropdown.Size = UDim2.new(0, 150, 0, 50) -- Horizontal Dropdown size
 
             Update(25)
             
