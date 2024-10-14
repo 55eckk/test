@@ -260,38 +260,36 @@ end
 
 AddDrag(Title_2, Main)
         
-function Window:Button(name, callback)
-    local callback = callback or function() end
-    local Button = Instance.new("Frame")
-    local Text = Instance.new("TextButton")
+        function Window:Button(name, callback)
+            local callback = callback or function() end
+            local Button = Instance.new("Frame")
+            local Text = Instance.new("TextButton")
 
-    -- Tamaño y posición ajustada para alinearlo en la UI
-    Button.Name = "Button"
-    Button.Parent = holder
-    Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Button.BackgroundTransparency = 1.000
-    Button.Size = UDim2.new(1, 0, 0, 20) -- Ajuste a un tamaño más pequeño (altura 20px)
+            Button.Name = "Button"
+            Button.Parent = holder
+            Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Button.BackgroundTransparency = 1.000
+            Button.Size = UDim2.new(0, 120, 0, 50) -- Horizontal Button size
 
-    Text.Name = "Text"
-    Text.Parent = Button
-    Text.Active = false
-    Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Text.BackgroundTransparency = 1.000
-    Text.Selectable = false
-    Text.Size = UDim2.new(1, 0, 1, 0) -- Alineación total del texto
-    Text.Font = Enum.Font.Roboto
-    Text.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Text.TextSize = 14.000 -- Ajuste de tamaño de fuente para hacerla más legible
-    Text.TextXAlignment = Enum.TextXAlignment.Left
-    Text.Text = name
-
-    -- Evento cuando el botón es presionado
-    Text.MouseButton1Click:Connect(function()
-        spawn(callback)
-    end)
-
-    Update(25) -- Ajustar para modificar la disposición vertical en el contenedor
-end
+            Text.Name = "Text"
+            Text.Parent = Button
+            Text.Active = false
+            Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Text.BackgroundTransparency = 1.000
+            Text.Selectable = false
+            Text.Size = UDim2.new(1, 0, 1, 0)
+            Text.Font = Enum.Font.Roboto
+            Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Text.TextSize = 12.000
+            Text.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+            Text.TextStrokeTransparency = 0.920
+            Text.TextXAlignment = Enum.TextXAlignment.Left
+            Text.Text = name
+            Text.MouseButton1Click:Connect(function()
+                spawn(callback)
+            end)
+            Update(25)
+        end
         
         function Window:Button2(name, options, callback)
             local callback = callback or function() end
@@ -305,7 +303,7 @@ end
             Button.Parent = holder
             Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             Button.BackgroundTransparency = 1.000
-            Button.Size = UDim2.new(1, 0, 0, 25)
+            Button.Size = UDim2.new(0, 120, 0, 50) -- Horizontal Button size
             
             Text.Name = "Text"
             Text.Parent = Button
@@ -331,61 +329,91 @@ end
             Update(25)
         end
 
-function Window:Toggle(name, options, callback)
-    local default = options.default or false
-    local location = options.location or self.flags
-    local flag = options.flag or ""
-    local callback = callback or function() end
+        function Window:Toggle(name, options, callback)
+            local default = options.default or false
+            local location = options.location or self.flags
+            local flag = options.flag or ""
+            local callback = callback or function() end
+            if default == false then
+                location[flag] = false
+            else
+                location[flag] = default
+                spawn(callback)
+            end
 
-    -- Contenedor del Toggle
-    local Toggle = Instance.new("Frame")
-    local Holder = Instance.new("Frame")
-    local toggle = Instance.new("TextButton")
-    local Text_2 = Instance.new("TextButton")
+            local Toggle = Instance.new("Frame")
+            local Holder = Instance.new("Frame")
+            local toggle = Instance.new("TextButton")
+            local Text_2 = Instance.new("TextButton")
 
-    Toggle.Name = "Toggle"
-    Toggle.Parent = holder
-    Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Toggle.BackgroundTransparency = 1.000
-    Toggle.Size = UDim2.new(1, 0, 0, 20) -- Ajuste de tamaño
+            Toggle.Name = "Toggle"
+            Toggle.Parent = holder
+            Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Toggle.BackgroundTransparency = 1.000
+            Toggle.Size = UDim2.new(0, 120, 0, 50) -- Horizontal Toggle size
+            
+            Holder.Name = "Holder"
+            Holder.Parent = Toggle
+            Holder.AnchorPoint = Vector2.new(1, 0.5)
+            Holder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Holder.BackgroundTransparency = 1.000
+            Holder.ClipsDescendants = true
+            Holder.Position = UDim2.new(1, 0, 0.5, 0)
+            Holder.Size = UDim2.new(0, 25, 0, 25)
+            
+            toggle.Name = "On"
+            toggle.Parent = Holder
+            toggle.Active = false
+            toggle.BackgroundColor3 = Color3.fromRGB(0, 255, 244)
+            toggle.BackgroundTransparency = 1.000
+            toggle.Selectable = false
+            toggle.Size = UDim2.new(1, 0, 1, 0)
+            toggle.Font = Enum.Font.Roboto
+            toggle.TextColor3 = Color3.fromRGB(0, 255, 244)
+            toggle.TextSize = 12.000
+            toggle.TextStrokeColor3 = Color3.fromRGB(0, 255, 244)
+            toggle.TextStrokeTransparency = 0.920
+            toggle.TextXAlignment = Enum.TextXAlignment.Left
+            
+            if default then
+                toggle.Text = "On"
+                toggle.TextColor3 = Color3.fromRGB(0,255,244)
+                toggle.TextStrokeColor3 = Color3.fromRGB(0, 255, 244)
+            else
+                toggle.Text = "Off"
+                toggle.TextColor3 = Color3.fromRGB(255,0,0)
+                toggle.TextStrokeColor3 = Color3.fromRGB(0,255,244)
+            end
 
-    Holder.Name = "Holder"
-    Holder.Parent = Toggle
-    Holder.AnchorPoint = Vector2.new(1, 0.5)
-    Holder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Holder.BackgroundTransparency = 1.000
-    Holder.Position = UDim2.new(1, 0, 0.5, 0)
-    Holder.Size = UDim2.new(0, 20, 0, 20) -- Tamaño más pequeño para el toggle
+            Text_2.Name = "Text"
+            Text_2.Parent = Toggle
+            Text_2.Active = false
+            Text_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Text_2.BackgroundTransparency = 1.000
+            Text_2.Selectable = false
+            Text_2.Size = UDim2.new(1, 0, 1, 0)
+            Text_2.Font = Enum.Font.Jura
+            Text_2.Text = name
+            Text_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Text_2.TextSize = 12.000
+            Text_2.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+            Text_2.TextStrokeTransparency = 0.920
+            Text_2.TextXAlignment = Enum.TextXAlignment.Left
 
-    toggle.Name = "On"
-    toggle.Parent = Holder
-    toggle.BackgroundColor3 = Color3.fromRGB(0, 255, 244)
-    toggle.BackgroundTransparency = 1.000
-    toggle.Size = UDim2.new(1, 0, 1, 0)
-    toggle.Font = Enum.Font.Roboto
-    toggle.TextSize = 12.000 -- Tamaño de fuente ajustado
-
-    -- Condición del estado del Toggle (On/Off)
-    if default then
-        toggle.Text = "On"
-    else
-        toggle.Text = "Off"
-    end
-
-    -- Cambiar el estado cuando se presiona
-    Text_2.MouseButton1Click:Connect(function()
-        if toggle.Text == "On" then
-            toggle.Text = "Off"
-            location[flag] = false
-        else
-            toggle.Text = "On"
-            location[flag] = true
+            Text_2.MouseButton1Click:Connect(function()
+                if toggle.Text == "On" then
+                    toggle.Text = "Off"
+                    location[flag] = false
+                    toggle.TextColor3 = Color3.fromRGB(255,0,0)
+                else
+                    toggle.Text = "On"
+                    location[flag] = true
+                    toggle.TextColor3 = Color3.fromRGB(0,255,244)
+                end
+                spawn(callback)
+            end)
+            Update(25)
         end
-        spawn(callback)
-    end)
-
-    Update(25) -- Mantener la estructura vertical en el contenedor
-end
 
         function Window:Slider(name, options, callback)
             local default = options.default or options.min
@@ -545,55 +573,53 @@ end
             Update(30)
         end
 
-function Window:Dropdown(name, options, callback)
-    local location   = options.location or self.flags
-    local flag       = options.flag or ""
-    local callback   = callback or function() end
+        function Window:Dropdown(name, options, callback)
+            local location   = options.location or self.flags
+            local flag       = options.flag or ""
+            local flag2      = options.flag2 or false
+            local callback   = callback or function() end
+            local PlayerList = options.PlayerList or false
+            local Search = options.search or false
+            local DropdownType = options.Dropdown or false
+            if PlayerList then
+                options.list = {}
+                for a,b in pairs(game:GetService("Players"):GetChildren()) do
+                    options.list[a] = b.Name;
+                end
+            elseif type(options.list) ~= "table" then
+                options.list = options.list:GetChildren()
+            end
+            location[flag] = options.list[1]
+            local Dropdown = Instance.new("Frame")
+            local Text = Instance.new("TextButton")
+            local Button = Instance.new("Frame")
+            local TextButton = Instance.new("ImageLabel")
+            local Frame = Instance.new("Frame")
+            local TextBox = Instance.new("TextBox")
+            local Frame_2 = Instance.new("Frame")
+            local Holder = Instance.new("ImageLabel")
+            local ScrollingFrame = Instance.new("ScrollingFrame")
+            local UIListLayout = Instance.new("UIListLayout")
 
-    -- Contenedor del Dropdown
-    local Dropdown = Instance.new("Frame")
-    local Text = Instance.new("TextButton")
-    local Button = Instance.new("Frame")
-    local Holder = Instance.new("Frame")
+            local function FixCanvas()
+                local Amount = 0
+                for i,v in pairs(ScrollingFrame:GetChildren()) do
+                    if v:IsA("TextButton") then
+                        if v.Visible == true then
+                            Amount = Amount + 1
+                        end
+                    end
+                end
+                ScrollingFrame.CanvasSize = UDim2.new(0,0,0,Amount * 20)
+            end
 
-    Dropdown.Name = "Dropdown"
-    Dropdown.Parent = holder
-    Dropdown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Dropdown.BackgroundTransparency = 1.000
-    Dropdown.Size = UDim2.new(1, 0, 0, 20) -- Ajuste de tamaño para hacerlo compacto
+            Dropdown.Name = "Dropdown"
+            Dropdown.Parent = holder
+            Dropdown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Dropdown.BackgroundTransparency = 1.000
+            Dropdown.Size = UDim2.new(0, 120, 0, 50) -- Horizontal Dropdown size
 
-    Text.Name = "Text"
-    Text.Parent = Dropdown
-    Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Text.BackgroundTransparency = 1.000
-    Text.Size = UDim2.new(1, 0, 1, 0)
-    Text.Font = Enum.Font.Roboto
-    Text.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Text.TextSize = 14.000 -- Tamaño de fuente ajustado
-    Text.Text = options.list[1] -- Mostrar el primer valor por defecto
-
-    -- Interactividad cuando se hace clic
-    Text.MouseButton1Click:Connect(function()
-        -- Mostrar/ocultar el dropdown
-        Holder.Visible = not Holder.Visible
-    end)
-
-    -- Agregar opciones dentro del Dropdown
-    for _, option in ipairs(options.list) do
-        local optionButton = Instance.new("TextButton")
-        optionButton.Parent = Holder
-        optionButton.Text = option
-        optionButton.Size = UDim2.new(1, 0, 0, 20)
-        optionButton.MouseButton1Click:Connect(function()
-            location[flag] = option
-            Text.Text = option
-            Holder.Visible = false
-            spawn(callback)
-        end)
-    end
-
-    Update(25) -- Mantener la disposición en el contenedor
-end
+            Update(25)
             
             local function Del(value)
                 for i,v in pairs(ScrollingFrame:GetChildren()) do
